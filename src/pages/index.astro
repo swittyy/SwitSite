@@ -31,7 +31,8 @@ const statusLabels: Record<Project["status"], string> = {
   <section class="hero container">
     <div class="hero-copy">
       <span class="eyebrow">Personal space · Internet</span>
-      <h1>Привет, я <span>Switty.</span></h1>
+      <h1>Switty<span>.</span></h1>
+      <div class="rust-tagline hero-rust-tagline is-transfer-hidden" id="hero-rust-tagline"><svg class="rust-symbol" viewBox="0 0 64 64" aria-hidden="true"><path d="M18 7h28l4 8 8 4v26l-8 4-4 8H18l-4-8-8-4V19l8-4z" fill="currentColor"/><circle cx="32" cy="32" r="13" fill="#0d0c0b"/><circle cx="32" cy="32" r="5" fill="currentColor"/></svg><span>Rust. Learn. Evolve.</span></div>
       <p class="hero-description">
         Люблю Linux, пишу код, исследую технологии и собираю здесь то,
         что отражает мой маленький уголок интернета.
@@ -142,6 +143,8 @@ const statusLabels: Record<Project["status"], string> = {
     color: var(--accent);
   }
 
+  .hero-rust-tagline { margin-top: 1.1rem; font-size: clamp(1.15rem, 2.4vw, 1.65rem); }
+
   .hero-description {
     max-width: 510px;
     margin: 1.6rem 0 2rem;
@@ -230,7 +233,7 @@ const statusLabels: Record<Project["status"], string> = {
 
   .orbit {
     position: absolute;
-    border: 1px solid rgb(208 188 255 / 16%);
+    border: 1px solid rgb(255 143 54 / 16%);
     border-radius: 50%;
     animation: orbit 28s linear infinite;
   }
@@ -261,8 +264,8 @@ const statusLabels: Record<Project["status"], string> = {
     place-items: center;
     border: 1px solid rgb(255 255 255 / 32%);
     border-radius: 34%;
-    background: linear-gradient(145deg, #e4d8ff, #a58be8);
-    box-shadow: 0 25px 90px rgb(153 119 226 / 28%), inset 0 1px 1px rgb(255 255 255 / 80%);
+    background: linear-gradient(145deg, #ffb15c, #e85b18);
+    box-shadow: 0 25px 90px rgb(255 111 24 / 28%), inset 0 1px 1px rgb(255 255 255 / 80%);
     color: #241b35;
     transform: rotate(-12deg);
     animation: float 6s ease-in-out infinite;
@@ -327,7 +330,7 @@ const statusLabels: Record<Project["status"], string> = {
   .project-card:hover,
   .explore-card:hover {
     transform: translateY(-5px);
-    border-color: rgb(208 188 255 / 35%);
+    border-color: rgb(255 143 54 / 35%);
     background-color: var(--surface-raised);
   }
 
