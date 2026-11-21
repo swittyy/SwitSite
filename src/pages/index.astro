@@ -77,7 +77,7 @@ const statusLabels: Record<Project["status"], string> = {
             <span class="project-index">0{index + 1} / PROJECT</span>
             <span class:list={["project-status", project.status]}>{statusLabels[project.status]}</span>
           </div>
-          <div class="project-symbol" aria-hidden="true">{index === 0 ? "⌘" : "↗"}</div>
+          <div class:list={["project-symbol", index === 1 && "pospolite-symbol"]} aria-hidden="true">{index === 0 ? "⌘" : "P"}</div>
           <h3>{project.name}</h3>
           <p>{project.description}</p>
           <div class="tag-list">
@@ -364,6 +364,17 @@ const statusLabels: Record<Project["status"], string> = {
     margin-top: 1.7rem;
     color: var(--accent);
     font: 2rem "DM Mono", monospace;
+  }
+
+  .project-symbol.pospolite-symbol {
+    display: grid;
+    width: 2.6rem;
+    height: 2.6rem;
+    place-items: center;
+    border: 1px solid var(--accent);
+    border-radius: 0.65rem;
+    font-size: 1.65rem;
+    font-weight: 800;
   }
 
   .project-card h3 {
