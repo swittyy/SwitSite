@@ -22,8 +22,32 @@ const base = import.meta.env.BASE_URL;
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <title>{title}</title>
+    <script is:inline>
+      document.documentElement.classList.add("is-loading");
+    </script>
   </head>
   <body>
+    <div class="site-loader" id="site-loader" role="status" aria-label="Загрузка сайта">
+      <div class="loader-atmosphere" aria-hidden="true"></div>
+      <div class="loader-content">
+        <div class="loader-identity">
+          <div class="loader-mark-wrap">
+            <div class="loader-mark-orbit orbit-a"></div>
+            <div class="loader-mark-orbit orbit-b"></div>
+            <div class="loader-mark"><span>S</span></div>
+            <span class="loader-spark spark-a"></span>
+            <span class="loader-spark spark-b"></span>
+          </div>
+          <div class="loader-wordmark">SWITTY<span>.</span></div>
+          <div class="loader-caption">A LITTLE SPACE ON THE INTERNET</div>
+        </div>
+        <div class="loader-bottom">
+          <div class="loader-status"><span>CRAFTING YOUR EXPERIENCE</span><span>PLEASE WAIT</span></div>
+          <div class="loader-progress"><span></span></div>
+          <div class="loader-coordinates"><span>PERSONAL DIGITAL SPACE</span><span>EST. 2026</span></div>
+        </div>
+      </div>
+    </div>
     <SiteHeader />
     <main>
       <slot />
@@ -34,6 +58,25 @@ const base = import.meta.env.BASE_URL;
         <span>Made with curiosity.</span>
       </div>
     </footer>
+    <script is:inline>
+      (() => {
+        const loader = document.getElementById("site-loader");
+        const revealTargets = document.querySelectorAll(
+          ".site-header, main .eyebrow, main h1, main h2, main h3, main p, main .hero-actions, main .hero-meta, main .project-card, main .explore-card, .site-footer"
+        );
+
+        revealTargets.forEach((element, index) => {
+          element.style.setProperty("--reveal-delay", `${Math.min(index * 55, 900)}ms`);
+        });
+
+        window.setTimeout(() => {
+          document.documentElement.classList.remove("is-loading");
+          document.documentElement.classList.add("is-loaded");
+          loader?.classList.add("is-leaving");
+          window.setTimeout(() => loader?.remove(), 750);
+        }, 2000);
+      })();
+    </script>
   </body>
 </html>
 
