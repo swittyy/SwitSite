@@ -1,0 +1,109 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+const tracks = [
+  ["эпиграф", "2:26"],
+  ["ащ-ащ!", "3:13"],
+  ["странные запросы", "2:38"],
+  ["ремарка", "3:02"],
+  ["молодой авангардист", "2:42"],
+  ["кажется, я устал", "2:50"],
+  ["оставь меня", "5:00"],
+  ["когда-нибудь", "2:53"],
+  ["твой свет", "2:07"],
+  ["оконченное письмо", "0:29"],
+  ["чёрный кот", "4:35"],
+  ["неплохая получилась история", "0:45"],
+  ["пытаться понять", "3:21"],
+  ["неважно", "4:39"],
+  ["не знаю почему", "3:47"],
+  ["интерлюдия №2", "0:31"],
+  ["вечер мой", "2:25"],
+  ["постскриптум", "1:44"],
+  ["рябина", "5:20"],
+];
+const backUrl = `${import.meta.env.BASE_URL}/music/`;
+---
+<BaseLayout title="Треклист — несколько вопросов самому себе | Switty" description="Полный треклист альбома несколько вопросов самому себе — конец солнечных дней.">
+  <section class="track-page container">
+    <a class="back-link" href={backUrl}><span aria-hidden="true">←</span> Назад к музыке</a>
+    <header class="track-heading">
+      <span class="eyebrow">ALBUM ARCHIVE <i></i> TRACKLIST 001</span>
+      <h1>Полный<br class="mobile-break" /> треклист<span>.</span></h1>
+      <p>конец солнечных дней <span>—</span> несколько вопросов самому себе</p>
+    </header>
+
+    <section class="track-panel surface" aria-label="Полный треклист альбома">
+      <div class="panel-top">
+        <div class="mini-art" aria-hidden="true"><span>КСД</span><i></i></div>
+        <div class="panel-album">
+          <small>ALBUM · 2024</small>
+          <h2>несколько вопросов самому себе</h2>
+          <p>19 композиций <b></b> 54:27</p>
+        </div>
+        <span class="panel-index">№ 001</span>
+      </div>
+      <div class="list-heading"><span>ВСЕ КОМПОЗИЦИИ</span><span>19 TRACKS</span></div>
+      <ol class="track-list">
+        {tracks.map(([name, duration], index) => (
+          <li class:list={["track-row", name === "неважно" && "is-favorite"]}>
+            <span class="track-index">{String(index + 1).padStart(2, "0")}</span>
+            <span class="track-mark" aria-hidden="true">{name === "неважно" ? "✳" : "—"}</span>
+            <span class="track-title">{name}</span>
+            {name === "неважно" && <span class="favorite-tag">МОЯ ЛЮБИМАЯ</span>}
+            <span class="track-length">{duration}</span>
+          </li>
+        ))}
+      </ol>
+      <div class="panel-bottom"><span>END OF SIDE A</span><span>SWITTY MUSIC LIBRARY <b>·</b> 2026</span></div>
+    </section>
+    <p class="track-note"><span>NOTE //</span> «неважно» — любимая композиция из этого альбома. Она отмечена отдельно.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .track-page { min-height: 70vh; padding-block: 4.5rem 5rem; }
+  .back-link { display: inline-flex; align-items: center; gap: .6rem; color: var(--muted); font-size: .82rem; transition: color .2s ease, transform .2s ease; }
+  .back-link:hover { color: var(--accent-strong); transform: translateX(-3px); }
+  .back-link span { color: var(--accent); font-size: 1.1rem; }
+  .track-heading { margin: 3.2rem 0 2.4rem; animation: track-enter .75s cubic-bezier(.2,.75,.25,1) both; }
+  .eyebrow { display: flex; align-items: center; gap: .8rem; color: var(--accent); font: .65rem "DM Mono", monospace; letter-spacing: .16em; }
+  .eyebrow i { width: 2.4rem; height: 1px; background: var(--accent); opacity: .65; }
+  h1 { margin: 1.1rem 0 .7rem; font-size: clamp(3rem, 8vw, 5.8rem); letter-spacing: -.09em; line-height: .94; }
+  h1 > span { color: var(--accent); text-shadow: 0 0 35px rgb(255 138 42 / 25%); }
+  .track-heading > p { color: var(--muted); line-height: 1.7; }
+  .track-heading > p span { color: var(--accent); padding-inline: .25rem; }
+  .surface { border: 1px solid rgb(255 255 255 / 8%); background: linear-gradient(145deg, rgb(255 255 255 / 4%), rgb(255 255 255 / 1%)); box-shadow: 0 22px 80px rgb(0 0 0 / 16%), inset 0 1px rgb(255 255 255 / 4%); backdrop-filter: blur(18px); }
+  .track-panel { padding: clamp(1.1rem, 3vw, 2rem); border-radius: 28px; animation: track-enter .85s .1s cubic-bezier(.2,.75,.25,1) both; }
+  .panel-top { display: flex; align-items: center; gap: 1rem; padding-bottom: 1.6rem; border-bottom: 1px solid rgb(255 255 255 / 8%); }
+  .mini-art { position: relative; display: grid; width: 68px; height: 68px; flex: 0 0 auto; place-items: center; overflow: hidden; border: 1px solid rgb(255 138 42 / 28%); border-radius: 15px; background: radial-gradient(circle at 70% 25%, #a65d36, transparent 50%), linear-gradient(145deg, #34231c, #100e0d); color: #ffbd91; font: .7rem "DM Mono", monospace; }
+  .mini-art i { position: absolute; inset: 10px; border: 1px solid rgb(255 183 126 / 28%); border-radius: 50%; }
+  .panel-album { min-width: 0; }
+  .panel-album small, .panel-index { color: var(--accent); font: .58rem "DM Mono", monospace; letter-spacing: .14em; }
+  .panel-album h2 { margin: .3rem 0; font-size: clamp(1.05rem, 2.5vw, 1.5rem); letter-spacing: -.045em; }
+  .panel-album p { margin: 0; color: var(--muted); font: .67rem "DM Mono", monospace; }
+  .panel-album p b { display: inline-block; width: 3px; height: 3px; margin: 0 .45rem .15rem; border-radius: 50%; background: var(--accent); }
+  .panel-index { margin-left: auto; color: #827267; white-space: nowrap; }
+  .list-heading { display: flex; justify-content: space-between; padding: 1.5rem .35rem .75rem; color: #9b897c; font: .59rem "DM Mono", monospace; letter-spacing: .15em; }
+  .list-heading span:last-child { color: var(--accent); }
+  .track-list { margin: 0; padding: 0; list-style: none; }
+  .track-row { position: relative; display: grid; grid-template-columns: 2.4rem 1.1rem minmax(0, 1fr) auto auto; align-items: center; gap: .7rem; min-height: 3.55rem; padding: 0 .65rem; border-bottom: 1px solid rgb(255 255 255 / 5%); border-radius: 9px; transition: background .25s ease, transform .25s ease, border-color .25s ease; animation: row-arrive .5s both; animation-delay: calc(70ms + var(--row-index, 0) * 25ms); }
+  .track-row:nth-child(1) { --row-index: 1; }.track-row:nth-child(2) { --row-index: 2; }.track-row:nth-child(3) { --row-index: 3; }.track-row:nth-child(4) { --row-index: 4; }.track-row:nth-child(5) { --row-index: 5; }.track-row:nth-child(6) { --row-index: 6; }.track-row:nth-child(7) { --row-index: 7; }.track-row:nth-child(8) { --row-index: 8; }.track-row:nth-child(9) { --row-index: 9; }.track-row:nth-child(10) { --row-index: 10; }.track-row:nth-child(11) { --row-index: 11; }.track-row:nth-child(12) { --row-index: 12; }.track-row:nth-child(13) { --row-index: 13; }.track-row:nth-child(14) { --row-index: 14; }.track-row:nth-child(15) { --row-index: 15; }.track-row:nth-child(16) { --row-index: 16; }.track-row:nth-child(17) { --row-index: 17; }.track-row:nth-child(18) { --row-index: 18; }.track-row:nth-child(19) { --row-index: 19; }
+  .track-row:hover { transform: translateX(4px); background: rgb(255 255 255 / 3%); }
+  .track-index, .track-length { color: #81746b; font: .68rem "DM Mono", monospace; }
+  .track-mark { color: #6f6259; font-size: .78rem; }
+  .track-title { overflow: hidden; color: #e7dcd4; font-size: .9rem; text-overflow: ellipsis; white-space: nowrap; }
+  .favorite-tag { padding: .28rem .48rem; border: 1px solid rgb(255 138 42 / 25%); border-radius: 999px; background: rgb(255 138 42 / 8%); color: var(--accent-strong); font: .48rem "DM Mono", monospace; letter-spacing: .08em; white-space: nowrap; }
+  .track-length { justify-self: end; }
+  .track-row.is-favorite { border: 1px solid rgb(255 138 42 / 22%); background: linear-gradient(90deg, rgb(255 138 42 / 9%), rgb(255 138 42 / 2%)); }
+  .track-row.is-favorite .track-index, .track-row.is-favorite .track-mark, .track-row.is-favorite .track-title, .track-row.is-favorite .track-length { color: var(--accent-strong); }
+  .track-row.is-favorite .track-title { font-weight: 800; }
+  .panel-bottom { display: flex; justify-content: space-between; gap: 1rem; padding: 1.2rem .35rem 0; color: #75685f; font: .55rem "DM Mono", monospace; letter-spacing: .12em; }
+  .panel-bottom b { color: var(--accent); }
+  .track-note { margin-top: 1.2rem; color: var(--muted); font-size: .75rem; line-height: 1.7; }
+  .track-note span { color: var(--accent); font: .62rem "DM Mono", monospace; }
+  @keyframes track-enter { from { opacity: 0; transform: translateY(22px); filter: blur(8px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+  @keyframes row-arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 560px) { .track-page { padding-block: 3rem 4rem; } .track-heading { margin-top: 2.5rem; } .track-row { grid-template-columns: 1.8rem .8rem minmax(0, 1fr) auto; gap: .45rem; min-height: 3.25rem; padding-inline: .35rem; } .favorite-tag { display: none; } .track-title { font-size: .82rem; } .panel-index { display: none; } .panel-bottom { flex-direction: column; gap: .5rem; } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } .surface { backdrop-filter: none; } }
+</style>
