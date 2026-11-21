@@ -63,25 +63,40 @@ const tracks = [
         </div>
       </article>
 
-      <section class="track-section surface">
-        <div class="track-heading">
-          <div>
-            <span class="eyebrow">Tracklist</span>
-            <h3>Все композиции</h3>
+      <section class="favorite-track surface" aria-label="Любимая композиция">
+        <div class="favorite-label"><span class="favorite-dot"></span> МОЯ ЛЮБИМАЯ КОМПОЗИЦИЯ</div>
+        <div class="favorite-main">
+          <div class="favorite-play" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 5.8c0-.78.85-1.26 1.52-.86l9.1 5.45a1 1 0 0 1 0 1.72l-9.1 5.45A1 1 0 0 1 8 16.7V5.8Z"/></svg>
           </div>
-          <span class="track-count">19 TRACKS</span>
+          <div class="favorite-copy">
+            <span class="favorite-overline">КОНЕЦ СОЛНЕЧНЫХ ДНЕЙ</span>
+            <h3>неважно</h3>
+            <span class="favorite-album">несколько вопросов самому себе</span>
+          </div>
+          <span class="favorite-duration">4:39</span>
         </div>
+        <p class="favorite-note">Та самая композиция, которую хочется выделить отдельно.</p>
+      </section>
+
+      <details class="track-details surface">
+        <summary>
+          <span class="summary-copy">
+            <span class="eyebrow">Tracklist</span>
+            <strong>Посмотреть весь треклист</strong>
+          </span>
+          <span class="summary-meta">19 TRACKS <span class="summary-chevron">⌄</span></span>
+        </summary>
         <ol class="track-list">
           {tracks.map(([name, duration], index) => (
             <li>
               <span class="track-number">{String(index + 1).padStart(2, "0")}</span>
-              <span class="track-name">{name}</span>
+              <span class:list={["track-name", name === "неважно" && "is-favorite"]}>{name}</span>
               <span class="track-duration">{duration}</span>
             </li>
           ))}
         </ol>
-        <p class="player-note"><span></span> Локальный плеер добавим, когда разберёмся с файлами и хранением музыки.</p>
-      </section>
+      </details>
     </section>
     <p class="library-footnote">Обложка пока временная — заменю её на оригинальную, когда добавим файл. Аудиофайлы не загружаются в репозиторий.</p>
   </section>
@@ -124,11 +139,11 @@ const tracks = [
   .track-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2.5rem; margin: .4rem 0 0; padding: 0; list-style: none; }
   .track-list li { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto; align-items: center; gap: .7rem; min-height: 3.15rem; border-bottom: 1px solid rgb(255 255 255 / 6%); }
   .track-number, .track-duration { color: #827267; font: .68rem "DM Mono", monospace; }
-  .track-name { overflow: hidden; color: #e9ddd3; font-size: .88rem; text-overflow: ellipsis; white-space: nowrap; }
+  .track-name { overflow: hidden; color: #e9ddd3; font-size: .88rem; text-overflow: ellipsis; white-space: nowrap; }\n  .track-name.is-favorite { color: var(--accent-strong); font-weight: 800; }
   .track-list li:hover .track-name { color: var(--accent-strong); }
   .player-note { display: flex; align-items: center; gap: .65rem; margin: 1.5rem 0 0; color: var(--muted); font-size: .78rem; line-height: 1.6; }
   .player-note span { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); }
   .library-footnote { margin-top: 1.2rem; color: #897a70; font-size: .75rem; line-height: 1.7; }
-  @media (max-width: 760px) { .page { padding-block: 4rem; } .album { grid-template-columns: 1fr; } .album-art { width: min(100%, 430px); min-height: 0; justify-self: center; } .album-info { padding: .5rem .2rem 1rem; } .track-list { grid-template-columns: 1fr; } }
+  @media (max-width: 760px) { .page { padding-block: 4rem; } .album { grid-template-columns: 1fr; } .album-art { width: min(100%, 430px); min-height: 0; justify-self: center; } .album-info { padding: .5rem .2rem 1rem; } .track-list { grid-template-columns: 1fr; } .favorite-note { margin-left: 0; } }
   @media (prefers-reduced-motion: reduce) { .listen-button { transition: none; } }
 </style>
