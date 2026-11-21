@@ -13,6 +13,21 @@ import BaseLayout from "@layouts/BaseLayout.astro";
       <a class="project surface" href="https://github.com/swittyy/SwitSite" target="_blank" rel="noreferrer">
         <div><span class="number">02 / WEB</span><h2>SwitSite</h2><p>Личное цифровое пространство, которое ты сейчас исследуешь.</p><span class="tags">Astro · TypeScript · CSS</span></div><span class="arrow">↗</span>
       </a>
+      <article class="project surface">
+        <div>
+          <span class="number">03 / E-COMMERCE</span>
+          <h2>POSPOLITE</h2>
+          <p>Независимый проект об компьютерной технике и доступных технологиях. Цель — постепенно создать открытый интернет-магазин комплектующих с удобным каталогом, подбором деталей и собственной серверной частью.</p>
+          <p>Проект развивается открыто: сообщество может предлагать идеи, сообщать об ошибках и участвовать в разработке.</p>
+          <span class="tags">HTML · CSS · JavaScript · Rust · MIT</span>
+          <div class="project-links">
+            <a href="https://pospoliteshop.ru" target="_blank" rel="noreferrer">Сайт ↗</a>
+            <a href="https://github.com/swittyy/pospolite" target="_blank" rel="noreferrer">GitHub ↗</a>
+            <a href="https://discord.gg/5xtcNRp36" target="_blank" rel="noreferrer">Discord ↗</a>
+            <a href="https://t.me/pospoliteshop" target="_blank" rel="noreferrer">Telegram ↗</a>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 </BaseLayout>
@@ -23,9 +38,13 @@ import BaseLayout from "@layouts/BaseLayout.astro";
   .page > p { max-width: 560px; color: var(--muted); line-height: 1.8; }
   .project-list { display: grid; gap: 1rem; margin-top: 3rem; }
   .project { display: flex; justify-content: space-between; gap: 2rem; padding: 2rem; transition: transform 180ms ease, border-color 180ms ease; }
+  a.project { text-decoration: none; }
   .project:hover { transform: translateY(-3px); border-color: var(--accent); }
   .number, .tags { color: var(--muted); font: 0.72rem "DM Mono", monospace; letter-spacing: .08em; }
   h2 { margin: 1rem 0 .5rem; font-size: 2rem; letter-spacing: -.06em; }
   .project p { color: var(--muted); line-height: 1.7; }
   .arrow { color: var(--accent); font-size: 1.4rem; }
+  .project-links { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 1.5rem; }
+  .project-links a { color: var(--accent); font-size: .9rem; text-decoration: none; }
+  .project-links a:hover { text-decoration: underline; }
 </style>
