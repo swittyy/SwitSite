@@ -85,14 +85,32 @@ const base = import.meta.env.BASE_URL;
             const dy = to.top + to.height / 2 - (from.top + from.height / 2);
             const sx = to.width / from.width;
             const sy = to.height / from.height;
+
+            // Animate a copy attached to <body>, not the loader itself.
+            // That way the loader can fade out without fading the moving tagline.
+            const movingTagline = loaderTagline.cloneNode(true);
+            movingTagline.removeAttribute("id");
+            movingTagline.classList.remove("rust-tagline-loader");
+            movingTagline.style.position = "fixed";
+            movingTagline.style.left = from.left + "px";
+            movingTagline.style.top = from.top + "px";
+            movingTagline.style.width = from.width + "px";
+            movingTagline.style.height = from.height + "px";
+            movingTagline.style.margin = "0";
+            movingTagline.style.zIndex = "1001";
+            movingTagline.style.pointerEvents = "none";
+            movingTagline.style.transformOrigin = "center center";
+            movingTagline.style.animation = "none";
+            document.body.appendChild(movingTagline);
+
             heroTagline.classList.add("is-transfer-hidden");
-            loaderTagline.animate(
+            movingTagline.animate(
               [{ transform: "translate(0, 0) scale(1)", opacity: 1 },
                { transform: "translate(" + dx + "px, " + dy + "px) scale(" + sx + ", " + sy + ")", opacity: 1 }],
               { duration: 760, easing: "cubic-bezier(.22, 1, .36, 1)", fill: "forwards" }
             ).onfinish = () => {
               heroTagline.classList.remove("is-transfer-hidden");
-              loaderTagline.style.visibility = "hidden";
+              movingTagline.remove();
             };
           }
           loader?.classList.add("is-leaving");
