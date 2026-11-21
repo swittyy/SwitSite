@@ -24,6 +24,8 @@ import BaseLayout from "@layouts/BaseLayout.astro";
   a.contact:hover { transform: translateY(-3px); border-color: var(--accent); }
   .contact > span:first-child, .contact small { color: var(--muted); font-size: .8rem; }
   .contact strong { font-size: 1.2rem; }
-  .contact-brand { position: absolute; top: 1.3rem; right: 1.4rem; display: grid; place-items: center; width: 1.65rem; height: 1.65rem; color: var(--accent); }\n  .contact-brand svg { display: block; width: 100%; height: 100%; fill: currentColor; }
+  .contact-brand { position: absolute; top: 1.3rem; right: 1.4rem; display: grid; place-items: center; width: 1.65rem; height: 1.65rem; color: #ff8a2a; }
+  .contact-brand svg { display: block; width: 100%; height: 100%; fill: #ff8a2a; color: #ff8a2a; }
+  .contact-brand svg path { fill: #ff8a2a; }
   @media (max-width: 600px) { .contact-grid { grid-template-columns: 1fr; } }
 </style>
