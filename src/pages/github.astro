@@ -1,0 +1,27 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+<BaseLayout title="GitHub — Switty">
+  <section class="page container">
+    <span class="eyebrow">Open source</span>
+    <h1>GitHub<span>.</span></h1>
+    <p>Мои репозитории, эксперименты и открытая разработка.</p>
+    <a class="profile surface" href="https://github.com/swittyy" target="_blank" rel="noreferrer">
+      <span class="avatar">s.</span>
+      <span class="profile-copy"><strong>@swittyy</strong><small>Открыть профиль на GitHub</small></span>
+      <span class="arrow">↗</span>
+    </a>
+  </section>
+</BaseLayout>
+<style>
+  .page { min-height: 70vh; padding-block: 6rem; }
+  h1 { margin: 1rem 0; font-size: clamp(3rem, 8vw, 5.5rem); letter-spacing: -.08em; }
+  h1 span { color: var(--accent); }
+  .page > p { max-width: 560px; color: var(--muted); line-height: 1.8; }
+  .profile { display: flex; align-items: center; gap: 1rem; max-width: 500px; margin-top: 3rem; padding: 1.3rem; transition: border-color 180ms ease, transform 180ms ease; }
+  .profile:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .avatar { display: grid; width: 54px; height: 54px; place-items: center; border-radius: 18px; background: var(--accent); color: #241b35; font: 800 1.3rem "DM Mono", monospace; }
+  .profile-copy { display: grid; gap: .3rem; }
+  .profile-copy small { color: var(--muted); }
+  .arrow { margin-left: auto; color: var(--accent); }
+</style>

@@ -1,0 +1,31 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+<BaseLayout title="Проекты — Switty">
+  <section class="page container">
+    <span class="eyebrow">Selected work</span>
+    <h1>Проекты<span>.</span></h1>
+    <p>Места, где идеи постепенно превращаются в работающий код.</p>
+    <div class="project-list">
+      <a class="project surface" href="https://github.com/swittyy/SweeBox" target="_blank" rel="noreferrer">
+        <div><span class="number">01 / RUST</span><h2>SweeBox</h2><p>Модульный VPN-клиент с TUI-интерфейсом на Rust и Xray-core.</p><span class="tags">Rust · Linux · Xray-core</span></div><span class="arrow">↗</span>
+      </a>
+      <a class="project surface" href="https://github.com/swittyy/SwitSite" target="_blank" rel="noreferrer">
+        <div><span class="number">02 / WEB</span><h2>SwitSite</h2><p>Личное цифровое пространство, которое ты сейчас исследуешь.</p><span class="tags">Astro · TypeScript · CSS</span></div><span class="arrow">↗</span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .page { min-height: 70vh; padding-block: 6rem; }
+  h1 { margin: 1rem 0; font-size: clamp(3rem, 8vw, 5.5rem); letter-spacing: -0.08em; }
+  h1 span { color: var(--accent); }
+  .page > p { max-width: 560px; color: var(--muted); line-height: 1.8; }
+  .project-list { display: grid; gap: 1rem; margin-top: 3rem; }
+  .project { display: flex; justify-content: space-between; gap: 2rem; padding: 2rem; transition: transform 180ms ease, border-color 180ms ease; }
+  .project:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .number, .tags { color: var(--muted); font: 0.72rem "DM Mono", monospace; letter-spacing: .08em; }
+  h2 { margin: 1rem 0 .5rem; font-size: 2rem; letter-spacing: -.06em; }
+  .project p { color: var(--muted); line-height: 1.7; }
+  .arrow { color: var(--accent); font-size: 1.4rem; }
+</style>

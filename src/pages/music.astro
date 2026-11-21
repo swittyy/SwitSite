@@ -1,0 +1,21 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+<BaseLayout title="Музыка — Switty">
+  <section class="page container">
+    <span class="eyebrow">On repeat</span>
+    <h1>Музыка<span>.</span></h1>
+    <p>Музыкальная полка ещё собирается. Здесь появятся альбомы, обложки и плеер.</p>
+    <div class="empty surface"><span class="note">♫</span><h2>Скоро заиграет</h2><p>Пока настраиваю эту часть пространства.</p></div>
+  </section>
+</BaseLayout>
+<style>
+  .page { min-height: 70vh; padding-block: 6rem; }
+  h1 { margin: 1rem 0; font-size: clamp(3rem, 8vw, 5.5rem); letter-spacing: -.08em; }
+  h1 span, .note { color: var(--accent); }
+  .page > p { max-width: 560px; color: var(--muted); line-height: 1.8; }
+  .empty { display: grid; min-height: 260px; place-content: center; justify-items: center; margin-top: 3rem; padding: 2rem; text-align: center; }
+  .note { font-size: 2.5rem; }
+  h2 { margin-bottom: .2rem; }
+  .empty p { color: var(--muted); }
+</style>
