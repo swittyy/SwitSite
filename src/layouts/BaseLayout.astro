@@ -12,6 +12,7 @@ const {
   description = "Личное цифровое пространство Switty: проекты, музыка и мысли.",
 } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const isHome = Astro.url.pathname === `${base}/` || Astro.url.pathname === base;
 ---
 <!doctype html>
 <html lang="ru">
@@ -27,7 +28,7 @@ const base = import.meta.env.BASE_URL;
     </script>
   </head>
   <body>
-    <div class="site-loader" id="site-loader" role="status" aria-label="Загрузка сайта">
+    <div class="site-loader" id="site-loader" data-home={isHome ? "true" : "false"} role="status" aria-label="Загрузка сайта">
       <div class="loader-atmosphere" aria-hidden="true"></div>
       <div class="loader-content">
         <div class="loader-identity">
@@ -39,10 +40,12 @@ const base = import.meta.env.BASE_URL;
             <span class="loader-spark spark-b"></span>
           </div>
           <div class="loader-wordmark">SWITTY<span>.</span></div>
-          <div class="rust-tagline rust-tagline-loader" id="loader-rust-tagline">
-            <img class="rust-symbol" src={`${base}/rust-logo.svg`} alt="" aria-hidden="true" />
-            <span>Rust. Learn. Evolve.</span>
-          </div>
+{isHome && (
+            <div class="rust-tagline rust-tagline-loader" id="loader-rust-tagline">
+              <img class="rust-symbol" src={`${base}/rust-logo.svg`} alt="" aria-hidden="true" />
+              <span>Rust. Learn. Evolve.</span>
+            </div>
+          )}
           <div class="loader-caption">A LITTLE SPACE ON THE INTERNET</div>
         </div>
         <div class="loader-bottom">
@@ -70,6 +73,7 @@ const base = import.meta.env.BASE_URL;
         );
         const loaderTagline = document.getElementById("loader-rust-tagline");
         const heroTagline = document.getElementById("hero-rust-tagline");
+        const isHome = loader?.dataset.home === "true";
 
         revealTargets.forEach((element, index) => {
           element.style.setProperty("--reveal-delay", `${Math.min(index * 55, 900)}ms`);
@@ -78,7 +82,7 @@ const base = import.meta.env.BASE_URL;
         window.setTimeout(() => {
           document.documentElement.classList.remove("is-loading");
           document.documentElement.classList.add("is-loaded");
-          if (loaderTagline && heroTagline && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          if (isHome && loaderTagline && heroTagline && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
             const from = loaderTagline.getBoundingClientRect();
             const to = heroTagline.getBoundingClientRect();
             const dx = to.left + to.width / 2 - (from.left + from.width / 2);
@@ -113,9 +117,12 @@ const base = import.meta.env.BASE_URL;
               movingTagline.remove();
             };
           }
+          if (isHome && heroTagline && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            heroTagline.classList.remove("is-transfer-hidden");
+          }
           loader?.classList.add("is-leaving");
           window.setTimeout(() => loader?.remove(), 800);
-        }, 2000);
+        }, isHome ? 2000 : 1000);
       })();
     </script>
   </body>
