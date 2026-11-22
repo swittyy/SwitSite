@@ -649,3 +649,12 @@ html.is-loaded .site-footer {
   .tilt-card { transform: none !important; transition: none !important; }
   .surface { -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
+
+/* Keep the tilt transform stronger than the cards' simple hover lift. */
+@media (hover: hover) and (pointer: fine) {
+  .project-card.tilt-card:hover,
+  .explore-card.tilt-card:hover,
+  .project.tilt-card:hover {
+    transform: perspective(900px) rotateX(var(--tilt-y)) rotateY(var(--tilt-x)) translateY(-5px);
+  }
+}
