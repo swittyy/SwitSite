@@ -168,6 +168,19 @@ a:focus-visible {
 }
 
 
+/* Keep the reusable loader hidden after the initial page intro. */
+.site-loader[hidden] {
+  display: none;
+}
+
+.site-loader.is-language-loading {
+  transition: opacity 140ms ease, visibility 140ms ease;
+}
+
+.site-loader.is-language-loading .loader-progress span {
+  animation: progress-fill 700ms cubic-bezier(.65, 0, .35, 1) both;
+}
+
 /* --- SwitSite loading experience --- */
 html.is-loading {
   overflow: hidden;
