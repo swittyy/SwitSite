@@ -231,7 +231,47 @@ const isHome = Astro.url.pathname === `${base}/` || Astro.url.pathname === base;
         } catch {}
         if (selector) selector.value = initial;
         applyLanguage(initial);
-        selector?.addEventListener("change", () => applyLanguage(selector.value));
+        let languageTransitionActive = false;
+        selector?.addEventListener("change", () => {
+          const nextLanguage = selector.value;
+          if (languageTransitionActive) return;
+          languageTransitionActive = true;
+
+          const loader = document.getElementById("site-loader");
+          const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          const finish = () => {
+            applyLanguage(nextLanguage);
+            if (loader) {
+              loader.classList.remove("is-language-loading");
+              loader.classList.add("is-leaving");
+              window.setTimeout(() => {
+                loader.hidden = true;
+                document.documentElement.classList.remove("is-loading");
+                languageTransitionActive = false;
+              }, 180);
+            } else {
+              document.documentElement.classList.remove("is-loading");
+              languageTransitionActive = false;
+            }
+          };
+
+          if (reducedMotion || !loader) {
+            finish();
+            return;
+          }
+
+          loader.hidden = false;
+          loader.classList.remove("is-leaving");
+          loader.classList.add("is-language-loading");
+          document.documentElement.classList.add("is-loading");
+          const progress = loader.querySelector(".loader-progress span");
+          if (progress) {
+            progress.style.animation = "none";
+            void progress.offsetWidth;
+            progress.style.animation = "";
+          }
+          window.setTimeout(finish, 700);
+        });
       })();
     </script>
     <script is:inline>
@@ -357,7 +397,9 @@ const isHome = Astro.url.pathname === `${base}/` || Astro.url.pathname === base;
             heroTagline.classList.remove("is-transfer-hidden");
           }
           loader?.classList.add("is-leaving");
-          window.setTimeout(() => loader?.remove(), 800);
+          window.setTimeout(() => {
+            if (loader) loader.hidden = true;
+          }, 800);
         }, isHome ? 2000 : 1000);
       })();
     </script>
