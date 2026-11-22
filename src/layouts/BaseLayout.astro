@@ -162,7 +162,13 @@ const isHome = Astro.url.pathname === `${base}/` || Astro.url.pathname === base;
           }
 
           const attributeTranslations = {
+            "content": {
+              "Личное цифровое пространство Switty: проекты, музыка и мысли.": ["Switty's personal digital space: projects, music, and thoughts.", "Swittys persönlicher digitaler Raum: Projekte, Musik und Gedanken."],
+              "Альбомы, к которым хочется возвращаться. Личная музыкальная библиотека Switty.": ["Albums worth coming back to. Switty's personal music library.", "Alben, zu denen man gerne zurückkehrt. Swittys persönliche Musikbibliothek."]
+            },
             "aria-label": {
+              "Switty — на главную": ["Switty — home", "Switty — Startseite"],
+              "Загрузка сайта": ["Loading website", "Website wird geladen"],
               "Основная навигация": ["Main navigation", "Hauptnavigation"],
               "Абстрактная декоративная композиция": ["Abstract decorative composition", "Abstrakte dekorative Komposition"],
               "Музыкальная библиотека": ["Music library", "Musikbibliothek"],
