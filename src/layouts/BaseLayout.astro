@@ -67,6 +67,73 @@ const isHome = Astro.url.pathname === `${base}/` || Astro.url.pathname === base;
     </footer>
     <script is:inline>
       (() => {
+        const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (!finePointer || reducedMotion) return;
+
+        document.documentElement.classList.add("has-custom-cursor");
+        const cursor = document.createElement("div");
+        cursor.className = "swit-cursor";
+        cursor.setAttribute("aria-hidden", "true");
+        const spotlight = document.createElement("div");
+        spotlight.className = "cursor-spotlight";
+        spotlight.setAttribute("aria-hidden", "true");
+        document.body.append(cursor, spotlight);
+
+        let pointerX = -100, pointerY = -100, cursorX = -100, cursorY = -100;
+        let frame = 0;
+        const render = () => {
+          cursorX += (pointerX - cursorX) * 0.22;
+          cursorY += (pointerY - cursorY) * 0.22;
+          cursor.style.transform = "translate3d(" + cursorX + "px, " + cursorY + "px, 0) translate(-50%, -50%)";
+          spotlight.style.transform = "translate3d(" + pointerX + "px, " + pointerY + "px, 0) translate(-50%, -50%)";
+          if (Math.abs(pointerX - cursorX) > 0.25 || Math.abs(pointerY - cursorY) > 0.25) {
+            frame = requestAnimationFrame(render);
+          } else {
+            frame = 0;
+          }
+        };
+
+        window.addEventListener("pointermove", (event) => {
+          pointerX = event.clientX;
+          pointerY = event.clientY;
+          cursor.classList.add("is-visible");
+          spotlight.classList.add("is-visible");
+          if (!frame) frame = requestAnimationFrame(render);
+        }, { passive: true });
+
+        document.addEventListener("pointerover", (event) => {
+          const target = event.target instanceof Element ? event.target.closest("a, button, [role='button']") : null;
+          cursor.classList.toggle("is-hovering", Boolean(target));
+        }, { passive: true });
+
+        document.querySelectorAll(".project-card, .explore-card, .project.surface").forEach((card) => {
+          card.classList.add("tilt-card");
+          card.addEventListener("pointermove", (event) => {
+            const rect = card.getBoundingClientRect();
+            const x = (event.clientX - rect.left) / rect.width;
+            const y = (event.clientY - rect.top) / rect.height;
+            card.style.setProperty("--tilt-x", ((x - 0.5) * 9).toFixed(2) + "deg");
+            card.style.setProperty("--tilt-y", ((0.5 - y) * 7).toFixed(2) + "deg");
+            card.style.setProperty("--glass-x", (x * 100).toFixed(1) + "%");
+            card.style.setProperty("--glass-y", (y * 100).toFixed(1) + "%");
+          }, { passive: true });
+          card.addEventListener("pointerleave", () => {
+            card.style.setProperty("--tilt-x", "0deg");
+            card.style.setProperty("--tilt-y", "0deg");
+            card.style.setProperty("--glass-x", "50%");
+            card.style.setProperty("--glass-y", "0%");
+          }, { passive: true });
+        });
+
+        window.addEventListener("blur", () => {
+          cursor.classList.remove("is-visible", "is-hovering");
+          spotlight.classList.remove("is-visible");
+        });
+      })();
+    </script>
+    <script is:inline>
+      (() => {
         const loader = document.getElementById("site-loader");
         const revealTargets = document.querySelectorAll(
           ".site-header, main .eyebrow, main h1, main h2, main h3, main p, main .hero-actions, main .hero-meta, main .project-card, main .explore-card, .site-footer"
