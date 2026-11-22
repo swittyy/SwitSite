@@ -671,3 +671,9 @@ html.is-loaded .site-footer {
     transform: perspective(900px) rotateX(var(--tilt-y)) rotateY(var(--tilt-x)) translateY(-5px);
   }
 }
+
+/* Language changes reuse the intro loader, but keep the transition under one second. */
+.site-loader.is-language-loading,
+.site-loader.is-language-loading.is-leaving {
+  transition: opacity 140ms ease, visibility 140ms ease;
+}
