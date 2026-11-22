@@ -24,6 +24,12 @@ const isHome = Astro.url.pathname === `${base}/` || Astro.url.pathname === base;
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <title>{title}</title>
     <script is:inline>
+      try {
+        const savedLanguage = localStorage.getItem("switsite-language");
+        if (savedLanguage === "en" || savedLanguage === "de" || savedLanguage === "ru") {
+          document.documentElement.lang = savedLanguage;
+        }
+      } catch {}
       document.documentElement.classList.add("is-loading");
     </script>
   </head>
@@ -65,6 +71,169 @@ const isHome = Astro.url.pathname === `${base}/` || Astro.url.pathname === base;
         <span>Made with curiosity.</span>
       </div>
     </footer>
+    <script is:inline>
+      (() => {
+        const translations = {
+          "Главная": ["Home", "Startseite"],
+          "Проекты": ["Projects", "Projekte"],
+          "Музыка": ["Music", "Musik"],
+          "Контакты": ["Contact", "Kontakt"],
+          "Мои проекты": ["My projects", "Meine Projekte"],
+          "Связаться": ["Get in touch", "Kontakt aufnehmen"],
+          "Сейчас что-то создаю": ["Currently building something", "Ich erschaffe gerade etwas"],
+          "То, что я создаю": ["What I'm building", "Was ich erschaffe"],
+          "Все проекты": ["All projects", "Alle Projekte"],
+          "Ещё немного обо мне": ["A little more about me", "Noch ein bisschen über mich"],
+          "Не только код. Здесь постепенно появятся музыка, активность и способы связаться.": ["More than code. Music, activity and ways to get in touch will appear here over time.", "Mehr als Code. Hier werden nach und nach Musik, Aktivitäten und Kontaktmöglichkeiten erscheinen."],
+          "Люблю Linux, пишу код, исследую технологии и собираю здесь то, что отражает мой маленький уголок интернета.": ["I love Linux, write code, explore technology, and collect things that reflect my little corner of the internet.", "Ich liebe Linux, schreibe Code, entdecke Technologien und sammle hier Dinge, die meine kleine Ecke des Internets widerspiegeln."],
+          "В разработке": ["In development", "In Entwicklung"],
+          "В планах": ["Planned", "Geplant"],
+          "Завершён": ["Completed", "Abgeschlossen"],
+          "Модульный VPN-клиент с TUI-интерфейсом на Rust и Xray-core.": ["A modular VPN client with a Rust TUI powered by Xray-core.", "Ein modularer VPN-Client mit TUI auf Rust-Basis und Xray-core."],
+          "Независимый проект о компьютерной технике, комплектующих и доступных технологиях.": ["An independent project about computer hardware, components, and accessible technology.", "Ein unabhängiges Projekt rund um Computerhardware, Komponenten und zugängliche Technologien."],
+          "Альбомы, которые хочется переслушивать.": ["Albums worth coming back to.", "Alben, die man immer wieder hören möchte."],
+          "Мои репозитории и открытая разработка.": ["My repositories and open-source work.", "Meine Repositories und Open-Source-Arbeit."],
+          "Места, где меня можно найти.": ["Places where you can find me.", "Hier kannst du mich finden."],
+          "Места, где идеи постепенно превращаются в работающий код.": ["Where ideas gradually turn into working code.", "Hier werden Ideen nach und nach zu funktionierendem Code."],
+          "Личное цифровое пространство, которое ты сейчас исследуешь.": ["A personal digital space you're exploring right now.", "Ein persönlicher digitaler Raum, den du gerade erkundest."],
+          "Независимый проект об компьютерной технике и доступных технологиях. Цель — постепенно создать открытый интернет-магазин комплектующих с удобным каталогом, подбором деталей и собственной серверной частью.": ["An independent project about computer hardware and accessible technology. The goal is to build an open online parts store with a useful catalog, component selection tools, and its own backend.", "Ein unabhängiges Projekt rund um Computerhardware und zugängliche Technologien. Ziel ist ein offener Online-Shop für Komponenten mit übersichtlichem Katalog, Teileauswahl und eigenem Backend."],
+          "Проект развивается открыто: сообщество может предлагать идеи, сообщать об ошибках и участвовать в разработке.": ["The project is developed in the open: the community can suggest ideas, report bugs, and contribute.", "Das Projekt entwickelt sich offen: Die Community kann Ideen vorschlagen, Fehler melden und mitentwickeln."],
+          "Сайт": ["Website", "Website"],
+          "Сайт ↗": ["Website ↗", "Website ↗"],
+          "Открыть профиль на GitHub": ["Open GitHub profile", "GitHub-Profil öffnen"],
+          "Мои репозитории, эксперименты и открытая разработка.": ["My repositories, experiments, and open-source work.", "Meine Repositories, Experimente und Open-Source-Arbeit."],
+          "Если хочешь что-то обсудить, предложить идею или просто поболтать — вот где меня найти.": ["If you'd like to discuss something, share an idea, or just chat, here's where to find me.", "Wenn du etwas besprechen, eine Idee teilen oder einfach plaudern möchtest, findest du mich hier."],
+          "Полный треклист": ["Full tracklist", "Vollständige Trackliste"],
+          "Назад к музыке": ["Back to music", "Zurück zur Musik"],
+          "ВСЕ КОМПОЗИЦИИ": ["ALL TRACKS", "ALLE TITEL"],
+          "МОЯ ЛЮБИМАЯ": ["MY FAVORITE", "MEIN FAVORIT"],
+          "Моя любимая": ["My favorite", "Mein Favorit"],
+          "В МОЕЙ БИБЛИОТЕКЕ": ["IN MY LIBRARY", "IN MEINER BIBLIOTHEK"],
+          "ЛИЧНЫЙ ФАВОРИТ": ["PERSONAL FAVORITE", "PERSÖNLICHER FAVORIT"],
+          "ДЛИТЕЛЬНОСТЬ": ["DURATION", "DAUER"],
+          "Композиция, которую хочется выделить отдельно.": ["A track I want to highlight separately.", "Ein Titel, den ich besonders hervorheben möchte."],
+          "Твой любимый трек этого альбома.": ["Your favorite track from this album.", "Dein Lieblingstitel aus diesem Album."],
+          "Показать треклист": ["Show tracklist", "Trackliste anzeigen"],
+          "Полный список композиций — прямо здесь": ["The complete tracklist, right here", "Die vollständige Trackliste – direkt hier"],
+          "Слушать альбом": ["Listen to album", "Album anhören"],
+          "Альбомы, к которым хочется возвращаться. Никаких рекомендаций — просто то, что играет у меня.": ["Albums I keep coming back to. No recommendations — just what I listen to.", "Alben, zu denen ich immer wieder zurückkehre. Keine Empfehlungen – einfach die Musik, die bei mir läuft."],
+          "Альбом о внутренних переживаниях, усталости и попытках разобраться в себе. Тот самый, который крутится во FLAC в cmus.": ["An album about inner struggles, exhaustion, and trying to understand yourself. The one I keep playing in FLAC through cmus.", "Ein Album über innere Konflikte, Müdigkeit und den Versuch, sich selbst zu verstehen. Genau das Album, das bei mir als FLAC in cmus läuft."],
+          "Девять композиций, в которых инди-рок встречается с эмо, шугейзом и неожиданными музыкальными поворотами.": ["Nine tracks where indie rock meets emo, shoegaze, and unexpected musical turns.", "Neun Titel, in denen Indie-Rock auf Emo, Shoegaze und unerwartete musikalische Wendungen trifft."],
+          "Открытый исходный код": ["Open source", "Open Source"],
+          "Say hello": ["Say hello", "Sag Hallo"],
+          "Слушать": ["Listen", "Anhören"],
+          "Треклист": ["Tracklist", "Trackliste"],
+          "Личное цифровое пространство Switty: проекты, музыка и мысли.": ["Switty's personal digital space: projects, music, and thoughts.", "Swittys persönlicher digitaler Raum: Projekte, Musik und Gedanken."],
+          "Альбомы, к которым хочется возвращаться. Личная музыкальная библиотека Switty.": ["Albums worth coming back to. Switty's personal music library.", "Alben, zu denen man gerne zurückkehrt. Swittys persönliche Musikbibliothek."],
+          "Авторская временная обложка альбома несколько вопросов самому себе": ["Custom placeholder artwork for the album 'несколько вопросов самому себе'", "Individuelles Platzhalter-Cover für das Album „несколько вопросов самому себе“"],
+          "Авторская обложка альбома короткая тропинка к сумасшедшему дому": ["Custom artwork for the album 'короткая тропинка к сумасшедшему дому'", "Individuelles Cover für das Album „короткая тропинка к сумасшедшему дому“"],
+          "Полный треклист альбома несколько вопросов самому себе": ["Full tracklist for the album несколько вопросов самому себе", "Vollständige Trackliste des Albums несколько вопросов самому себе"],
+          "Полный треклист альбома короткая тропинка к сумасшедшему дому": ["Full tracklist for the album короткая тропинка к сумасшедшему дому", "Vollständige Trackliste des Albums короткая тропинка к сумасшедшему дому"],
+          "Личная музыкальная библиотека Switty": ["Switty's personal music library", "Swittys persönliche Musikbibliothek"],
+          "Полный": ["Full", "Vollständige"],
+          "треклист": ["tracklist", "Trackliste"],
+          "19 треков": ["19 tracks", "19 Titel"],
+          "9 треков": ["9 tracks", "9 Titel"],
+          "19 КОМПОЗИЦИЙ · 54:27": ["19 TRACKS · 54:27", "19 TITEL · 54:27"],
+          "9 КОМПОЗИЦИЙ · 31:45": ["9 TRACKS · 31:45", "9 TITEL · 31:45"],
+          "Обложка пока временная — заменю её на оригинальную, когда добавим файл. Аудиофайлы не загружаются в репозиторий.": ["The cover is temporary for now — I'll replace it with the original once we add the file. Audio files are not uploaded to the repository.", "Das Cover ist vorerst ein Platzhalter — ich ersetze es durch das Original, sobald wir die Datei hinzufügen. Audiodateien werden nicht ins Repository hochgeladen."],
+          "19 композиций": ["19 tracks", "19 Titel"],
+          "9 композиций": ["9 tracks", "9 Titel"],
+          "Открыть профиль на GitHub": ["Open GitHub profile", "GitHub-Profil öffnen"],
+          "Сейчас что-то создаю": ["Currently building something", "Ich erschaffe gerade etwas"],
+          "«неважно» — любимая композиция из этого альбома. Она отмечена отдельно.": ["“неважно” is my favorite track from this album. It is marked separately.", "„неважно“ ist mein Lieblingstitel aus diesem Album. Er ist gesondert markiert."],
+          "Открытый исходный код": ["Open source", "Open Source"],
+          "Say hello": ["Say hello", "Sag Hallo"],
+          "Загрузка сайта": ["Loading website", "Website wird geladen"]
+        };
+
+        const originalText = new WeakMap();
+        const originalAttributes = new WeakMap();
+        const languages = ["ru", "en", "de"];
+
+        function applyLanguage(language) {
+          const lang = languages.includes(language) ? language : "ru";
+          const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+          let node;
+          while ((node = walker.nextNode())) {
+            if (!originalText.has(node)) originalText.set(node, node.nodeValue || "");
+            const original = originalText.get(node);
+            const trimmed = original.trim().replace(/\s+/g, " ");
+            const translated = lang === "ru" ? trimmed : translations[trimmed]?.[lang === "en" ? 0 : 1];
+            if (translated) {
+              const leading = original.match(/^\s*/)?.[0] || "";
+              const trailing = original.match(/\s*$/)?.[0] || "";
+              node.nodeValue = leading + translated + trailing;
+            } else if (lang === "ru") {
+              node.nodeValue = original;
+            }
+          }
+
+          const attributeTranslations = {
+            "content": {
+              "Личное цифровое пространство Switty: проекты, музыка и мысли.": ["Switty's personal digital space: projects, music, and thoughts.", "Swittys persönlicher digitaler Raum: Projekte, Musik und Gedanken."],
+              "Альбомы, к которым хочется возвращаться. Личная музыкальная библиотека Switty.": ["Albums worth coming back to. Switty's personal music library.", "Alben, zu denen man gerne zurückkehrt. Swittys persönliche Musikbibliothek."]
+            },
+            "aria-label": {
+              "Select language": ["Select language", "Sprache auswählen"],
+              "Switty — на главную": ["Switty — home", "Switty — Startseite"],
+              "Загрузка сайта": ["Loading website", "Website wird geladen"],
+              "Основная навигация": ["Main navigation", "Hauptnavigation"],
+              "Абстрактная декоративная композиция": ["Abstract decorative composition", "Abstrakte dekorative Komposition"],
+              "Музыкальная библиотека": ["Music library", "Musikbibliothek"],
+              "Авторская временная обложка альбома несколько вопросов самому себе": ["Custom placeholder artwork for the album несколько вопросов самому себе", "Individuelles Platzhalter-Cover für das Album несколько вопросов самому себе"],
+              "Авторская обложка альбома короткая тропинка к сумасшедшему дому": ["Custom artwork for the album короткая тропинка к сумасшедшему дому", "Individuelles Cover für das Album короткая тропинка к сумасшедшему дому"],
+              "Полный треклист альбома несколько вопросов самому себе": ["Full tracklist for the album несколько вопросов самому себе", "Vollständige Trackliste des Albums несколько вопросов самому себе"],
+              "Полный треклист альбома короткая тропинка к сумасшедшему дому": ["Full tracklist for the album короткая тропинка к сумасшедшему дому", "Vollständige Trackliste des Albums короткая тропинка к сумасшедшему дому"],
+              "Любимая композиция": ["Favorite track", "Lieblingstitel"],
+              "Любимая композиция второго альбома": ["Favorite track from the second album", "Lieblingstitel des zweiten Albums"]
+            }
+          };
+          document.querySelectorAll("[aria-label], title, meta[name='description']").forEach((element) => {
+            const attrs = ["aria-label", "content"];
+            attrs.forEach((attr) => {
+              if (!element.hasAttribute(attr)) return;
+              let saved = originalAttributes.get(element);
+              if (!saved) { saved = {}; originalAttributes.set(element, saved); }
+              if (!(attr in saved)) saved[attr] = element.getAttribute(attr);
+              const original = saved[attr];
+              const translated = attributeTranslations[attr]?.[original];
+              if (lang === "ru") element.setAttribute(attr, original);
+              else if (translated) element.setAttribute(attr, translated[lang === "en" ? 0 : 1]);
+            });
+          });
+
+          const title = document.querySelector("title");
+          if (title) {
+            const titleMap = {
+              "Проекты — Switty": ["Projects — Switty", "Projekte — Switty"],
+              "Музыка — Switty": ["Music — Switty", "Musik — Switty"],
+              "Контакты — Switty": ["Contact — Switty", "Kontakt — Switty"],
+              "GitHub — Switty": ["GitHub — Switty", "GitHub — Switty"],
+              "Треклист — несколько вопросов самому себе | Switty": ["Tracklist — несколько вопросов самому себе | Switty", "Trackliste — несколько вопросов самому себе | Switty"]
+            };
+            const originalTitle = title.dataset.originalTitle || title.textContent;
+            title.dataset.originalTitle = originalTitle;
+            document.title = lang === "ru" ? originalTitle : (titleMap[originalTitle]?.[lang === "en" ? 0 : 1] || originalTitle);
+          }
+
+          document.documentElement.lang = lang;
+          const selector = document.getElementById("language-switcher");
+          if (selector && selector.value !== lang) selector.value = lang;
+          try { localStorage.setItem("switsite-language", lang); } catch {}
+        }
+
+        const selector = document.getElementById("language-switcher");
+        let initial = "ru";
+        try {
+          const saved = localStorage.getItem("switsite-language");
+          if (languages.includes(saved)) initial = saved;
+        } catch {}
+        if (selector) selector.value = initial;
+        applyLanguage(initial);
+        selector?.addEventListener("change", () => applyLanguage(selector.value));
+      })();
+    </script>
     <script is:inline>
       (() => {
         const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
