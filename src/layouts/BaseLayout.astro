@@ -143,11 +143,11 @@ const isHome = Astro.url.pathname === `${base}/` || Astro.url.pathname === base;
           while ((node = walker.nextNode())) {
             if (!originalText.has(node)) originalText.set(node, node.nodeValue || "");
             const original = originalText.get(node);
-            const trimmed = original.trim().replace(/\\s+/g, " ");
+            const trimmed = original.trim().replace(/\s+/g, " ");
             const translated = lang === "ru" ? trimmed : translations[trimmed]?.[lang === "en" ? 0 : 1];
             if (translated) {
-              const leading = original.match(/^\\s*/)?.[0] || "";
-              const trailing = original.match(/\\s*$/)?.[0] || "";
+              const leading = original.match(/^\s*/)?.[0] || "";
+              const trailing = original.match(/\s*$/)?.[0] || "";
               node.nodeValue = leading + translated + trailing;
             } else if (lang === "ru") {
               node.nodeValue = original;
