@@ -87,7 +87,11 @@ const isHome = Astro.url.pathname === `${base}/` || Astro.url.pathname === base;
           cursorY += (pointerY - cursorY) * 0.22;
           cursor.style.transform = "translate3d(" + cursorX + "px, " + cursorY + "px, 0) translate(-50%, -50%)";
           spotlight.style.transform = "translate3d(" + pointerX + "px, " + pointerY + "px, 0) translate(-50%, -50%)";
-          frame = requestAnimationFrame(render);
+          if (Math.abs(pointerX - cursorX) > 0.25 || Math.abs(pointerY - cursorY) > 0.25) {
+            frame = requestAnimationFrame(render);
+          } else {
+            frame = 0;
+          }
         };
 
         window.addEventListener("pointermove", (event) => {
