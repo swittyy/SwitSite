@@ -276,7 +276,7 @@ const isHome = Astro.url.pathname === `${base}/` || Astro.url.pathname === base;
           cursor.classList.toggle("is-hovering", Boolean(target));
         }, { passive: true });
 
-        document.querySelectorAll(".project-card, .explore-card, .project.surface").forEach((card) => {
+        document.querySelectorAll("main .surface, main .inline-tracklist").forEach((card) => {
           card.classList.add("tilt-card");
           card.addEventListener("pointermove", (event) => {
             const rect = card.getBoundingClientRect();
